@@ -2,17 +2,16 @@
 
 Proyecto API Rest en Go con Fiber y GORM. Creado por Héctor Coello.
 
-Instalaciones:
 
-Instalar Fiber
+Instalar Fiber:
 go get github.com/gofiber/fiber/v2 
 
-Instalar Gorm
+Instalar Gorm:
 go get gorm.io/gorm
 
-Instalar Mysql
+Instalar Mysql:
 go get gorm.io/driver/mysql
 
-Instalar SQL Server
+Instalar SQL Server:
 go get gorm.io/driver/sqlserver
 
