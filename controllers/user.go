@@ -24,11 +24,19 @@ func ShowUser(db *gorm.DB) fiber.Handler {
 		id := c.Params("id")
 
 		var user models.User
-		if err := db.First(&user, "id = ?", id).Error; err != nil {
-			return c.Status(fiber.StatusOK).JSON(fiber.Map{"error": err.Error()})
+		res := db.Raw("SELECT * FROM users WHERE id = ?", id).Scan(&user)
+
+		if res.Error != nil {
+			return c.Status(fiber.StatusOK).JSON(fiber.Map{"error": res.Error.Error()})
 		}
 
-		return c.Status(fiber.StatusOK).JSON(user)
+		if res.RowsAffected == 0 {
+			return c.Status(fiber.StatusOK).JSON(nil)
+		}else{
+			return c.Status(fiber.StatusOK).JSON(user)
+		}
+
+		
 	}
 }
 

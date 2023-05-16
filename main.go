@@ -11,7 +11,8 @@ import (
 )
 
 func main() {
-
+	
+	/*
 	db, err := database.OpenDB(config.Config{
 		Host:     "localhost",
 		Port:     "3306",
@@ -19,26 +20,22 @@ func main() {
 		Password: "",
 		DBName:   "fiber",
 	})
+	*/
+
+	db, err := database.OpenDB(config.Config{
+		Host:     "204.12.242.103",
+		Port:     "1433",
+		User:     "sa",
+		Password: "Data4142",
+		DBName:   "ZeusTest",
+	})
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	db.AutoMigrate(&models.User{})
-
-	/*
-		// Insertar datos de prueba
-
-		users := []models.User{
-			{Id: "1", Name: "José Saturnino Cardozo", Email: "pepe@futbol.com", Status: 1},
-			{Id: "2", Name: "Antonio Naelson Sinha", Email: "sinha@futbol.com", Status: 1},
-		}
-		for _, user := range users {
-			if err := db.Create(&user).Error; err != nil {
-			}
-		}
-
-	*/
+	//db.AutoMigrate(&models.User{}, &models.Post{})
 
 	app := fiber.New()
 	api := app.Group("/api")
