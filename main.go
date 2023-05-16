@@ -11,10 +11,6 @@ import (
 	"github.com/hectorcoellomx/fiber/auth"
 )
 
-const (
-	secretKey = "abc34Ns1t34pp2012s" 
-)
-
 func main() {
 	
 	/* db, err := database.OpenDB(config.Config{ Host: "localhost", Port: "3306", User: "root", Password: "", DBName: "fiber" }) */
