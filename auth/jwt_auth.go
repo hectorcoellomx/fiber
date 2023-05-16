@@ -13,11 +13,14 @@ const (
 
 func GenerateToken(c *fiber.Ctx) error {
 
+	duration := 1.0 // hours
+	durationInHours := time.Duration(duration * float64(time.Hour))
+
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	claims := token.Claims.(jwt.MapClaims)
 	claims["sub"] = "user_id"         
-	claims["exp"] = time.Now().Add(time.Hour * 24).Unix() 
+	claims["exp"] = time.Now().Add(durationInHours).Unix() 
 
 	tokenString, err := token.SignedString([]byte(secretKey))
 
@@ -34,7 +37,7 @@ func ValidateToken(tokenString string) map[string]interface{} {
 
 	if tokenString == "" {
 		res["success"] = false
-		res["message"] = "No se proporcionó el token de autenticación"
+		res["message"] = "Authentication token not provided"
 		return res
 	}
 
@@ -43,30 +46,24 @@ func ValidateToken(tokenString string) map[string]interface{} {
 	})
 
 	if err != nil || !token.Valid {
+
+		message := ""
+
+		if err != nil {
+			message = err.Error()
+		}
+
+		if message != "Token is expired" {
+			message = "Invalid token"
+		}
+
 		res["success"] = false
-		res["message"] = "Token de autenticación inválido"
+		res["message"] = message
 		return res
 	}
 
-	/* 
-	
-	claims, ok := token.Claims.(jwt.MapClaims)
-
-	if !ok || !token.Valid {
-		res["success"] = false
-		res["message"] = "Token de autenticación inválido"
-		return res
-	}
-
-	expirationTime := claims["exp"].(float64)
-	expiration := time.Unix(int64(expirationTime), 0)
-
-	if time.Now().After(expiration) {
-		res["success"] = false
-		res["message"] = "El token ha expirado"
-	}
-
-	*/
+	/*claims, ok := token.Claims.(jwt.MapClaims)
+	expirationTime := claims["sub"]*/
 
 	res["success"] = true
 	res["message"] = "ok"
