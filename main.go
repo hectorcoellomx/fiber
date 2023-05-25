@@ -10,11 +10,15 @@ import (
 	"github.com/hectorcoellomx/fiber/controllers"
 	"github.com/hectorcoellomx/fiber/database"
 	"github.com/hectorcoellomx/fiber/models"
+<<<<<<< HEAD
 	"github.com/joho/godotenv"
+=======
+>>>>>>> 22f881b84c961f07505a670c837817ed369bef93
 )
 
 func main() {
 
+<<<<<<< HEAD
 	err := godotenv.Load()
 
 	if err != nil {
@@ -27,6 +31,16 @@ func main() {
 		User:     os.Getenv("DB_USER"),
 		Password: os.Getenv("DB_PASSWORD"),
 		DBName:   os.Getenv("DB_DATABASE"),
+=======
+	/* db, err := database.OpenDB(config.Config{ Host: "localhost", Port: "3306", User: "root", Password: "", DBName: "fiber" }) */
+
+	db, err := database.OpenDB(config.Config{
+		Host:     "204.12.242.103",
+		Port:     "1433",
+		User:     "",
+		Password: "",
+		DBName:   "",
+>>>>>>> 22f881b84c961f07505a670c837817ed369bef93
 	})
 
 	if err != nil {
@@ -54,12 +68,19 @@ func main() {
 func JWTMiddleware(c *fiber.Ctx) error {
 
 	authHeader := c.Get("Authorization")
+<<<<<<< HEAD
 	validate := auth.ValidateToken(c, authHeader)
 	//claims := validate["claims"].(map[string]interface{})
 	//id := claims["sub"].(string)
 
 	if validate["success"] == false {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"success": false, "message": validate["message"], "error_code": validate["errorno"]})
+=======
+	validate := auth.ValidateToken(authHeader)
+
+	if validate["success"] == false {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"message": validate["message"]})
+>>>>>>> 22f881b84c961f07505a670c837817ed369bef93
 	}
 
 	return c.Next()
