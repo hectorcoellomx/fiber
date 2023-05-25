@@ -1,17 +1,15 @@
-# FIBER CON GORM
+# sgi_gda_server
 
-Proyecto API Rest en Go con Fiber y GORM. Creado por Héctor Coello.
+Proyecto backend del sistema de control integral de GDA
 
+## Getting Started
 
-Instalar Fiber:
-go get github.com/gofiber/fiber/v2 
+El proyecto tiene como finalidad la generación de una servicio API Rest.
 
-Instalar Gorm:
-go get gorm.io/gorm
+A continuación encontrarás algunos recursos importantes:
 
-Instalar Mysql:
-go get gorm.io/driver/mysql
+- [Ejemplo de http listening con GO](https://github.com/gorilla/mux)
 
-Instalar SQL Server:
-go get gorm.io/driver/sqlserver
+[Documentación en línea](https://go.dev)
 
+[Ejemplo API Rest](https://www.youtube.com/watch?v=pQAV8A9KLwk)
